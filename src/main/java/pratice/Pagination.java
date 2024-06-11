@@ -5,8 +5,12 @@ import java.util.List;
 public class Pagination {
     public static void main(String[] args) {
 
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-        System.out.println(getPaginationResponse(numbers, 0, 0).getContent());
+        // to 25
+        List<Integer> numbers = List.of(1, 2,3,4,5,6,7,8,9,10);
+        System.out.println(getPaginationResponse(numbers, 3, 10).isLast());
+        System.out.println(getPaginationResponse(numbers, 0, 20).getContent());
+        System.out.println(getPaginationResponse(numbers, 3, 5).isLast());
+        System.out.println(getPaginationResponse(numbers, 0, 5).getContent());
 
 
     }
@@ -17,7 +21,7 @@ public class Pagination {
             pageSize = 10;
         }
         if (numbers.isEmpty()) {
-            return new PaginationResponse(0, 0, 0, 0, false, false, 0, true, List.of());
+            response = new PaginationResponse(0, 0, 0, 0, false, false, 0, true, List.of());
         } else if (pageSize > numbers.size() && pageNo == 0) {
             response = new PaginationResponse(numbers.size(), pageNo, pageSize, 1, false, false, numbers.size(), true, numbers);
         } else if (pageSize >= numbers.size() && pageNo > 0){
