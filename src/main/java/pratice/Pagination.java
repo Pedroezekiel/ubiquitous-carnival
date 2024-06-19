@@ -6,11 +6,8 @@ public class Pagination {
     public static void main(String[] args) {
 
         // to 25
-        List<Integer> numbers = List.of(1, 2,3,4,5,6,7,8,9,10);
-        System.out.println(getPaginationResponse(numbers, 3, 10).isLast());
-        System.out.println(getPaginationResponse(numbers, 0, 20).getContent());
-        System.out.println(getPaginationResponse(numbers, 3, 5).isLast());
-        System.out.println(getPaginationResponse(numbers, 0, 5).getContent());
+        List<Integer> numbers = List.of(1, 2,3,4,5,6,7,8, 9,10);
+        System.out.println(getPaginationResponse(numbers, 0, 10).getContent());
 
 
     }
@@ -35,7 +32,11 @@ public class Pagination {
                 int remainder = numbers.size() % pageSize;
                 if (remainder == 0){
                     int formIndex = numbers.size() - remainder;
-                    response = new PaginationResponse(numbers.size(), pageNo, pageSize, availablePages, pageNo > 1, false, numbers.size(), true, numbers.subList(formIndex, numbers.size()-1));
+                    if(numbers.size() == pageSize){
+                        response = new PaginationResponse(numbers.size(), pageNo, pageSize, availablePages, pageNo > 1, false, numbers.size(), true, numbers);
+                    }else {
+                        response = new PaginationResponse(numbers.size(), pageNo, pageSize, availablePages, pageNo > 1, false, numbers.size(), true, numbers.subList(formIndex, numbers.size() - 1));
+                    }
                 } else {
                     response = getPageData(numbers, pageNo, pageSize, availablePages, lastPage);
                 }
